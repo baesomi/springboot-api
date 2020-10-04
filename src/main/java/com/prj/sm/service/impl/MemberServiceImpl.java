@@ -2,7 +2,7 @@ package com.prj.sm.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.prj.sm.model.Member;
+import com.prj.sm.domain.Member;
 import com.prj.sm.repository.MemberRepository;
 import com.prj.sm.service.MemberService;
 import com.prj.sm.util.CommonConst;

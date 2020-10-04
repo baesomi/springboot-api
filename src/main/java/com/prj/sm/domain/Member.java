@@ -1,10 +1,10 @@
-package com.prj.sm.model;
+package com.prj.sm.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -21,35 +21,23 @@ public class Member {
 /**
  * 사용자 정보
  * */
+	// email 
     @Id
-    @GeneratedValue
-    private int seq;
-    
-    // email 
-    @Column(nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String id;
 
     @Column(nullable = false)
     private String password;
     
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String name;
     
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date createDate;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    private Date updateDate;
-
-	public int getSeq() {
-		return seq;
-	}
-
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
+    private Date lastLoginDate;
 
 	public String getId() {
 		return id;
@@ -73,5 +61,21 @@ public class Member {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
 	}
 }

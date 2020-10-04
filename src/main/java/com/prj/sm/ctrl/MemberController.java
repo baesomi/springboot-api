@@ -9,7 +9,7 @@ import com.prj.sm.util.*;
 public class MemberController {
 
 	@ResponseBody
-	@RequestMapping(value="/join")
+	@RequestMapping(value="/v1/member/join")
 	public String join() {
 		int rc = CommonConst.SUCCESS;
 		

@@ -1,6 +1,6 @@
 package com.prj.sm.service;
 
-import com.prj.sm.model.Member;
+import com.prj.sm.domain.Member;
 
 public interface MemberService {
 	
