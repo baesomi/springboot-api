@@ -1,8 +1,6 @@
-package com.prj.sm.repository;
+package com.prj.sm.domain.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.prj.sm.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 	
