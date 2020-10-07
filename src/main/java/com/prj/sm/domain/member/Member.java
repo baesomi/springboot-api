@@ -4,16 +4,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Member implements UserDetails {
 /**
  * 사용자 정보
  * */
@@ -51,4 +54,34 @@ public class Member {
     public void updateLastLoginDate() {
     	lastLoginDate = new Date(System.currentTimeMillis());
     }
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.id;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

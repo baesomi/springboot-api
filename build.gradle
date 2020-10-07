@@ -18,13 +18,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	
-	compile 'mysql:mysql-connector-java'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+	
 	compile 'com.h2database:h2'
+	compile 'mysql:mysql-connector-java'
+	
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
+    
     annotationProcessor 'org.projectlombok:lombok'
+	
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
