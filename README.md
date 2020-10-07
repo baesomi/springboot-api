@@ -33,7 +33,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 |메서드|요청URL|
 |------|---|
-|POST|https://localhost/v1/member/join|
+|POST| /v1/member/join|
 
 
 - **Request Header**    
@@ -49,7 +49,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 |메서드|요청URL|
 |------|---|
-|POST|https://localhost/v1/member/login|
+|POST| /v1/member/login|
 
 
 - **Request Header**    
@@ -66,7 +66,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 |메서드|요청URL|
 |------|---|
-|GET| https://localhost/v1/member/info|
+|GET| /v1/member/info|
 
 
 - **Request Header**    
