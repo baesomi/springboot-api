@@ -4,9 +4,9 @@ spring boot 기반의 간단한 회원가입/로그인 api
 # WEB API 명세서
 
 
-URL은 다음과 같은 형식을 따릅니다.    
+URI 다음과 같은 형식을 따릅니다.    
 ~~~
-https://localhost/v1/{API종류}/{API이름}
+/v1/{API종류}/{API이름}
 ~~~
 
 ## API 상세
@@ -31,7 +31,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 - **API 호출 방식**    
 
-|메서드|요청URL|
+|메서드|요청URI|
 |------|---|
 |POST| /v1/member/join|
 
@@ -47,7 +47,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 - **API 호출 방식**
 
-|메서드|요청URL|
+|메서드|요청URI|
 |------|---|
 |POST| /v1/member/login|
 
@@ -64,7 +64,7 @@ https://localhost/v1/{API종류}/{API이름}
 
 - **API 호출 방식**
 
-|메서드|요청URL|
+|메서드|요청URI|
 |------|---|
 |GET| /v1/member/info|
 
