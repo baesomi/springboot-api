@@ -29,47 +29,50 @@ https://localhost/v1/{API종류}/{API이름}
 ### member/join
 회원가입
 
-**API 호출 방식**
+- **API 호출 방식**    
+
 |메서드|요청URL|
 |------|---|
 |POST|https://localhost/v1/member/join|
 
 
-#### Request Header
+- **Request Header**    
 
-#### Request Elements
+- **Request Elements**    
 
-#### Response
+- **Response**  
 
 ### member/login
 로그인
 
-**API 호출 방식**
+- **API 호출 방식**
 
 |메서드|요청URL|
 |------|---|
 |POST|https://localhost/v1/member/login|
 
-#### Request Header
 
-#### Request Elements
+- **Request Header**    
 
-#### Response
+- **Request Elements**    
+
+- **Response**    
 
 
 ### member/info
 로그인 사용자 정보 조회
 
-**API 호출 방식**
+- **API 호출 방식**
+
 |메서드|요청URL|
 |------|---|
 |GET| https://localhost/v1/member/info|
 
 
-#### Request Header
+- **Request Header**    
 
-#### Request Elements
+- **Request Elements**    
 
-#### Response
+- **Response**    
 
 
