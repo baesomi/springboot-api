@@ -71,6 +71,6 @@ public class MemberService {
 	@Transactional(readOnly = true)
 	public MemberInfoResponseDto getInfoById(String id) {
 		Member entity = memberRepository.findById(id);
-		return new MemberInfoResponseDto(entity);
+		return (null == entity) ? null : new MemberInfoResponseDto(entity);
 	}
 }
