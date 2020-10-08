@@ -33,28 +33,32 @@ public class MemberApiController {
 
 	@ResponseBody
 	@PostMapping(value="/v1/member/join")
-	public ResponseEntity<Map> join(@RequestBody MemberJoinRequestDto requestDto) {
-		int rc = CommonConst.SUCCESS;
+	public ResponseEntity<Map> join(@RequestBody MemberJoinRequestDto requestDto) throws Exception {
+		if(null == requestDto) {
+			throw new Exception ("RequestBody is NULL!");
+		}
+
 		Map map = new HashMap();
-		if(null != requestDto) {
-			// check ID
-			String id = requestDto.getId();
-			if (StringUtils.isNotEmpty(id) && CommonUtil.isValidEmail(id)) {
-				if(null != memberService.getInfoById(id)) {
-					map.put("errorCode", CommonConst.DUPLICATED_MEMBER);
-					return new ResponseEntity<>(map, HttpStatus.OK);
-				}
-				// check Password
-				String password = requestDto.getPassword();
-				if(StringUtils.isNotEmpty(password) && CommonUtil.isValidPw(password)) {
-					// join
-					rc = memberService.join(requestDto);
-				} else {
-					map.put("errorCode", CommonConst.INVALID_PARAMETER);
-					return new ResponseEntity<>(map, HttpStatus.OK);
-				}
+		int rc = CommonConst.SUCCESS;
+
+		// check ID
+		String id = requestDto.getId();
+		if (StringUtils.isNotEmpty(id) && CommonUtil.isValidEmail(id)) {
+			if(null != memberService.getInfoById(id)) {
+				map.put("errorCode", CommonConst.DUPLICATED_MEMBER);
+				return new ResponseEntity<>(map, HttpStatus.OK);
+			}
+			// check Password
+			String password = requestDto.getPassword();
+			if(StringUtils.isNotEmpty(password) && CommonUtil.isValidPw(password)) {
+				// join
+				rc = memberService.join(requestDto);
+			} else {
+				map.put("errorCode", CommonConst.INVALID_PARAMETER);
+				return new ResponseEntity<>(map, HttpStatus.OK);
 			}
 		}
+		
 		map.put("success", CommonUtil.isSuccess(rc));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
@@ -63,8 +67,8 @@ public class MemberApiController {
 	@PostMapping(value="/v1/member/login")
 	public ResponseEntity<Map> login(@RequestBody MemberLoginRequestDto requestDto, 
 				HttpServletResponse response){
-		int rc = CommonConst.SUCCESS;
 		Map map = new HashMap();
+		int rc = CommonConst.SUCCESS;
 		String accessToken = "";
 		try {
 			accessToken =  memberService.login(requestDto);

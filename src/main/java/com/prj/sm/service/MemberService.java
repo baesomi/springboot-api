@@ -20,6 +20,7 @@ public class MemberService {
 	private final EncryptHelper encryptHelper;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final MemberRepository memberRepository;
+
 	/**
 	 * Join
 	 * @param requestDto
@@ -37,6 +38,7 @@ public class MemberService {
 		memberRepository.save(joinMember);
 		return rc;
 	}
+
 	/**
 	 * Login
 	 * @param requestDto

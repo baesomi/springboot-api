@@ -34,21 +34,21 @@ public class MemberApiControllerTest {
 
 	@LocalServerPort
 	private int port;
-	
+
 	@Autowired
 	private TestRestTemplate restTemplate;
-	
+
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	@Autowired
 	private EncryptHelper encryptHelper;
-	
+
 	@After
 	public void cleanup() throws Exception{
 		memberRepository.deleteAll();
 	}
-	
+
 	@Test
 	public void testJoin() throws Exception {
 		//given
@@ -56,32 +56,30 @@ public class MemberApiControllerTest {
 		String name = "John Doe";
 		String password = "abCde12345678";
 		
-		MemberJoinRequestDto requestDto = MemberJoinRequestDto
-													.builder()
-													.id(id)
-													.password(password)
-													.name(name)
-													.build();
+		MemberJoinRequestDto requestDto = MemberJoinRequestDto.builder()
+														.id(id)
+														.password(password)
+														.name(name)
+														.build();
+
 		String url = "http://localhost:"+port+"/v1/member/join";
-		
+
 		//when
 		ResponseEntity<Object> responseEntity = restTemplate.postForEntity(url, requestDto, Object.class);
-		
+
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		
+
 		List<Member> all = memberRepository.findAll();
 		assertThat(all.get(0).getId()).isEqualTo(id);
 		assertTrue(encryptHelper.isMatch(password,all.get(0).getPassword()));
 		assertThat(all.get(0).getName()).isEqualTo(name);
-
 	}
 	
 	@Deprecated
 	public void testLogin() throws Exception {
 		//given
 		String id = "test@gmail.com";
-		String name = "John Doe";
 		String password = "abCde12345678";
 		
 		MemberLoginRequestDto requestDto = MemberLoginRequestDto
@@ -90,10 +88,10 @@ public class MemberApiControllerTest {
 													.password(password)
 													.build();
 		String url = "http://localhost:"+port+"/v1/member/login";
-		
+
 		//when
 		ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, requestDto, Map.class);
-		
+
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		System.out.println("=================================================================");
@@ -101,25 +99,25 @@ public class MemberApiControllerTest {
 		System.out.println("response=" + responseEntity.getBody().toString());
 		System.out.println("=================================================================");
 	}
-	
+
 	@Deprecated
 	public void testGetAuthorizedMemberInfo() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		String accessToken= ""; //need input
 		headers.set("X-AUTH-TOKEN", accessToken);
-		
+
 		String url = "http://localhost:"+port+"/v1/member/info";
-		
+
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(null, headers);
-		
+
 		ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.GET ,request, Object.class);
-		
+
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		System.out.println("=================================================================");
 		System.out.println("responseEntity.getStatusCode() " + responseEntity.getStatusCode() );
 		System.out.println("responseEntity.getBody() " + responseEntity.getBody() );
 		System.out.println("=================================================================");
-		
+
 	}
 }

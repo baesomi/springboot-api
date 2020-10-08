@@ -45,9 +45,9 @@ public class JwtTokenProvider {
 			claims.put("userName", userName); 
 			Date now = new Date();
 			token = Jwts.builder()
-						.setClaims(claims) // 정보 저장
-						.setIssuedAt(now) // 토큰 발행 시간 정보
-						.setExpiration(new Date(now.getTime() + TOKEN_VALID_TIME)) // set Expire Time
+						.setClaims(claims)
+						.setIssuedAt(now)
+						.setExpiration(new Date(now.getTime() + TOKEN_VALID_TIME))
 						.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
 						.compact();
 		}
