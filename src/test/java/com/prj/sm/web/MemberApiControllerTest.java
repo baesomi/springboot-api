@@ -62,10 +62,10 @@ public class MemberApiControllerTest {
 														.name(name)
 														.build();
 
-		String url = "http://localhost:"+port+"/v1/member/join";
+		final String URL_JOIN = "http://localhost:" + port + "/v1/member/join";
 
 		//when
-		ResponseEntity<Object> responseEntity = restTemplate.postForEntity(url, requestDto, Object.class);
+		ResponseEntity<Object> responseEntity = restTemplate.postForEntity(URL_JOIN, requestDto, Object.class);
 
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -75,7 +75,7 @@ public class MemberApiControllerTest {
 		assertTrue(encryptHelper.isMatch(password,all.get(0).getPassword()));
 		assertThat(all.get(0).getName()).isEqualTo(name);
 	}
-	
+
 	@Deprecated
 	public void testLogin() throws Exception {
 		//given
@@ -87,10 +87,10 @@ public class MemberApiControllerTest {
 													.id(id)
 													.password(password)
 													.build();
-		String url = "http://localhost:"+port+"/v1/member/login";
+		final String URL_LOGIN = "http://localhost:" + port + "/v1/member/login";
 
 		//when
-		ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, requestDto, Map.class);
+		ResponseEntity<Map> responseEntity = restTemplate.postForEntity(URL_LOGIN, requestDto, Map.class);
 
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -106,14 +106,13 @@ public class MemberApiControllerTest {
 		String accessToken= ""; //need input
 		headers.set("X-AUTH-TOKEN", accessToken);
 
-		String url = "http://localhost:"+port+"/v1/member/info";
-
+		final String URL_GETINFO = "http://localhost:" + port + "/v1/member/info";
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(null, headers);
-
-		ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.GET ,request, Object.class);
+		ResponseEntity<Object> responseEntity = restTemplate.exchange(URL_GETINFO, HttpMethod.GET ,request, Object.class);
 
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
 		System.out.println("=================================================================");
 		System.out.println("responseEntity.getStatusCode() " + responseEntity.getStatusCode() );
 		System.out.println("responseEntity.getBody() " + responseEntity.getBody() );
