@@ -24,8 +24,8 @@ public class MemberRepositoryTest {
 	}
 	
 	@Test
-    public void testInsertSelect() {
-        //given
+	public void testInsertSelect() {
+		//given
 		String id = "test@gmail.com";
 		String name = "John Doe";
 		String password = "12345";

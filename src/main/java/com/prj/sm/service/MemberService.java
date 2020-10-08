@@ -21,9 +21,9 @@ public class MemberService {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final MemberRepository memberRepository;
 	/**
-	 * 회원가입
+	 * Join
 	 * @param requestDto
-	 * @return
+	 * @return rc
 	 */
 	@Transactional
 	public int join(MemberJoinRequestDto requestDto) {
@@ -38,9 +38,9 @@ public class MemberService {
 		return rc;
 	}
 	/**
-	 * 로그인
+	 * Login
 	 * @param requestDto
-	 * @return
+	 * @return accessToken
 	 */
 	@Transactional
 	public String login(MemberLoginRequestDto requestDto) {
@@ -62,9 +62,9 @@ public class MemberService {
 	}
 
 	/**
-	 * 회원정보 조회
+	 * Get Member Information
 	 * @param id
-	 * @return
+	 * @return MemberInfoResponseDto
 	 */
 	@Transactional(readOnly = true)
 	public MemberInfoResponseDto getInfoById(String id) {

@@ -8,11 +8,9 @@ import lombok.Getter;
 @Getter
 public class MemberInfoResponseDto {
 
-	//사용자이름, Email, 직전 로그인 일시
 	private String id;
 	private String name;
 	private Date lastLoginDate;
-	
 	
 	public MemberInfoResponseDto(Member entity) {
 		this.id = entity.getId();

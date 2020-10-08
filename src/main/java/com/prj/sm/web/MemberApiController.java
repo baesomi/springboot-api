@@ -33,7 +33,7 @@ public class MemberApiController {
 	
 	private final MemberService memberService;
 	private final JwtTokenProvider jwtTokenProvider;
-	
+
 	@ResponseBody
 	@PostMapping(value="/v1/member/join")
 	public ResponseEntity<Map> join(@RequestBody MemberJoinRequestDto requestDto) {
@@ -61,7 +61,7 @@ public class MemberApiController {
 		map.put("success", CommonUtil.isSuccess(rc));
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@PostMapping(value="/v1/member/login")
 	public ResponseEntity<Map> login(@RequestBody MemberLoginRequestDto requestDto, 
@@ -71,18 +71,18 @@ public class MemberApiController {
 		String accessToken = "";
 		try {
 			accessToken =  memberService.login(requestDto);
-        } catch (IllegalArgumentException e) {
-            rc = CommonConst.FAILURE;
-            map.put("errorMsg", e.getMessage());
-        } catch (Exception e) {
-            rc = CommonConst.FAILURE;
-            map.put("errorMsg", e.getMessage());
-        }
+		} catch (IllegalArgumentException e) {
+			rc = CommonConst.FAILURE;
+			map.put("errorMsg", e.getMessage());
+		} catch (Exception e) {
+			rc = CommonConst.FAILURE;
+			map.put("errorMsg", e.getMessage());
+		}
 		map.put("success", CommonUtil.isSuccess(rc));
 		map.put("accessToken", accessToken);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value="/v1/member/info")
 	public ResponseEntity<MemberInfoResponseDto> getAuthorizedMemberInfo(HttpServletRequest request) {
 		String token = jwtTokenProvider.resolveToken(request);
