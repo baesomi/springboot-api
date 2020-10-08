@@ -18,15 +18,12 @@ import org.springframework.util.MultiValueMap;
 
 import com.prj.sm.domain.member.Member;
 import com.prj.sm.domain.member.MemberRepository;
-import com.prj.sm.util.CommonConst;
 import com.prj.sm.util.EncryptHelper;
 import com.prj.sm.web.dto.MemberJoinRequestDto;
 import com.prj.sm.web.dto.MemberLoginRequestDto;
 
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,19 +44,17 @@ public class MemberApiControllerTest {
 	@Autowired
 	private EncryptHelper encryptHelper;
 	
-	String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInVzZXJJZCI6InRlc3RAZ21haWwuY29tIiwidXNlck5hbWUiOiJKb2huIERvZSIsImlhdCI6MTYwMjA5MjM4NSwiZXhwIjoxNjAyMDk0MTg1fQ.huflCfoM_P6O3yE8O0MwKR2olHx1XXRiyTahGiZ1cWc";
-	
-	@Deprecated
+	@After
 	public void cleanup() throws Exception{
 		memberRepository.deleteAll();
 	}
 	
-	@Deprecated
+	@Test
 	public void testJoin() throws Exception {
 		//given
 		String id = "test@gmail.com";
 		String name = "John Doe";
-		String password = "12345";
+		String password = "abCde12345678";
 		
 		MemberJoinRequestDto requestDto = MemberJoinRequestDto
 													.builder()
@@ -87,7 +82,7 @@ public class MemberApiControllerTest {
 		//given
 		String id = "test@gmail.com";
 		String name = "John Doe";
-		String password = "12345";
+		String password = "abCde12345678";
 		
 		MemberLoginRequestDto requestDto = MemberLoginRequestDto
 													.builder()
@@ -101,17 +96,16 @@ public class MemberApiControllerTest {
 		
 		//then
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		Map obj = responseEntity.getBody();
-		accessToken = (String) obj.get("access_token");
 		System.out.println("=================================================================");
-		System.out.println("responseEntity.getBody() " + responseEntity.getBody() );
-		System.out.println("obj " + obj.toString());
+		System.out.println("responseEntity.getBody()=" + responseEntity.getBody() );
+		System.out.println("response=" + responseEntity.getBody().toString());
 		System.out.println("=================================================================");
 	}
 	
-	@Test
+	@Deprecated
 	public void testGetAuthorizedMemberInfo() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
+		String accessToken= ""; //need input
 		headers.set("X-AUTH-TOKEN", accessToken);
 		
 		String url = "http://localhost:"+port+"/v1/member/info";

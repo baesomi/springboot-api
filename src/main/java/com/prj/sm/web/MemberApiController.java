@@ -39,25 +39,26 @@ public class MemberApiController {
 	public ResponseEntity<Map> join(@RequestBody MemberJoinRequestDto requestDto) {
 		int rc = CommonConst.SUCCESS;
 		Map map = new HashMap();
-		/**
-		 1. ID는 반드시 email 형식이어야 합니다. 
-		 2. 비밀번호는 영어 대문자, 영어 소문자, 숫자, 특수문자 중 3종류 이상으로 12자리 이상 의 문자열로 생성해야 합니다. 
-		 3. 비밀번호는 서버에 저장될 때에는 반드시 단방향 해시 처리가 되어야 합니다
-		*/
 		if(null != requestDto) {
-			
+			// check ID
 			String id = requestDto.getId();
-			String password = requestDto.getPassword();
-			String name = requestDto.getName();
-
 			if (StringUtils.isNotEmpty(id) && CommonUtil.isValidEmail(id)) {
-
+				if(null != memberService.getInfoById(id)) {
+					map.put("errorCode", CommonConst.DUPLICATED_MEMBER);
+					return new ResponseEntity<>(map, HttpStatus.OK);
+				}
+				// check Password
+				String password = requestDto.getPassword();
+				if(StringUtils.isNotEmpty(password) && CommonUtil.isValidPw(password)) {
+					// join
+					rc = memberService.join(requestDto);
+				} else {
+					map.put("errorCode", CommonConst.INVALID_PARAMETER);
+					return new ResponseEntity<>(map, HttpStatus.OK);
+				}
 			}
-			
-			rc = memberService.join(requestDto);
 		}
 		map.put("success", CommonUtil.isSuccess(rc));
-		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
@@ -72,13 +73,13 @@ public class MemberApiController {
 			accessToken =  memberService.login(requestDto);
         } catch (IllegalArgumentException e) {
             rc = CommonConst.FAILURE;
-            map.put("error_msg", e.getMessage());
+            map.put("errorMsg", e.getMessage());
         } catch (Exception e) {
             rc = CommonConst.FAILURE;
-            map.put("error_msg", e.getMessage());
+            map.put("errorMsg", e.getMessage());
         }
 		map.put("success", CommonUtil.isSuccess(rc));
-		map.put("access_token", accessToken);
+		map.put("accessToken", accessToken);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
